@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Med-Lense AI</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI';
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+/* MAIN CONTAINER */
+.container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px;
+    text-align: center;
+}
+
+/* HEADER */
+.title {
+    font-size: 38px;
+    font-weight: bold;
+}
+
+.subtitle {
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+/* SCAN BOX */
+.scan-box {
+    background: white;
+    color: black;
+    padding: 30px;
+    border-radius: 20px;
+    width: 60%;
+    margin: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.scan-btn {
+    margin-top: 15px;
+    padding: 12px 30px;
+    border: none;
+    background: black;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* REPORT BOX */
+.report-card {
+    margin-top: 25px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255,255,255,0.2);
+    padding: 25px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.report-card:hover {
+    background: rgba(255,255,255,0.35);
+    transform: translateY(-5px);
+}
+
+/* OUTPUT */
+.output {
+    margin-top: 40px;
+}
+
+.box {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 15px auto;
+    width: 70%;
+}
+
+.ai-box {
+    background: black;
+    color: #00ff9d;
+    font-family: monospace;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .scan-box,
+    .report-card,
+    .box {
+        width: 95%;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="title">💊 Med-Lense AI</div>
+<div class="subtitle">AI Medicine Scanner</div>
+
+<!-- 🔍 SCAN -->
+
+<div class="scan-box">
+<h2>Scan Medicine</h2>
+<form method="POST" enctype="multipart/form-data">
+<input type="file" name="image" required><br><br>
+<button class="scan-btn">Scan</button>
+</form>
+</div>
+
+<!-- 📂 REPORT BELOW -->
+
+<a href="/reports" style="text-decoration:none; color:white;">
+<div class="report-card">
+<h2>📂 Medical Reports</h2>
+<p>Upload & manage prescriptions</p>
+</div>
+</a>
+
+<!-- OUTPUT -->
+{% if data %}
+
+<div class="analysis-box">
+
+```
+<h2>🧠 AI Medicine Analysis</h2>
+
+<div class="section">
+    <span>💊 Medicine Name</span>
+    <p>{{ data.name }}</p>
+</div>
+
+<div class="section">
+    <span>🩺 Use</span>
+    <p>{{ data.use }}</p>
+</div>
+
+<div class="section">
+    <span>📏 Dosage</span>
+    <p>{{ data.dosage }}</p>
+</div>
+
+<div class="section">
+    <span>⚠️ Side Effects</span>
+    <p>{{ data.effects }}</p>
+</div>
+
+<div class="section alert">
+    <span>🚨 Safety Alert</span>
+    <pre>{{ data.alert }}</pre>
+</div>
+```
+</div>
+{% endif %}
+
+<style>
+
+/* MAIN BOX */
+.analysis-box {
+    width: 70%;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+/* TITLE */
+.analysis-box h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* EACH SECTION */
+.section {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* LAST BORDER REMOVE */
+.section:last-child {
+    border-bottom: none;
+}
+
+/* LABEL */
+.section span {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    opacity: 0.9;
+}
+
+/* TEXT */
+.section p {
+    margin: 0;
+    opacity: 0.85;
+}
+
+/* ALERT SPECIAL */
+.alert {
+    color: #ff6b6b;
+}
+
+.alert pre {
+    white-space: pre-wrap;
+    font-family: 'Segoe UI';
+    margin: 0;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .analysis-box {
+        width: 90%;
+    }
+}
+
+</style>
+
+
+<style>
+
+/* GRID */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 85%;
+    margin: 40px auto;
+}
+
+/* CARD BASE */
+.card {
+    padding: 20px;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+/* DIFFERENT COLORS */
+.gradient1 {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+}
+
+.gradient2 {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+}
+
+.gradient3 {
+    background: linear-gradient(135deg, #f7971e, #ffd200);
+    color: black;
+}
+
+.gradient4 {
+    background: linear-gradient(135deg, #e53935, #e35d5b);
+}
+
+/* ALERT */
+.alert-card {
+    background: linear-gradient(135deg, #000000, #434343);
+    color: #00ff9d;
+    font-family: monospace;
+}
+
+.alert-card pre {
+    white-space: pre-wrap;
+}
+
+</style>
+
+
+</div>
+
+</div>
+
+</body>
+</html>
